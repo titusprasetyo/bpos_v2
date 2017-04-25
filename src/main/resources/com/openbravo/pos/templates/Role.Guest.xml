@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ bPOS Retail Solution
+ -->
+<permissions>
+    <class name="com.openbravo.pos.sales.JPanelTicketSales"/>  
+</permissions>

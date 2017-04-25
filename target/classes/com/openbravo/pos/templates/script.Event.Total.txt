@@ -1,0 +1,20 @@
+// script.Event.Total
+// bPOS Retail Solution
+
+
+for(int i= 0; i < ticket.getLinesCount(); i++){
+	line = ticket.getLine(i);
+	if ($ticketline.isProductKitchen()){
+		line.setProperty("sendstatus", "No");
+	}
+	if(line.getProperty("sendstatus").equals("No")){
+		mySent = "No";
+	}
+}
+
+if (mySent == "No"){
+	javax.swing.JOptionPane.showMessageDialog(null, "Before closing ticket: Please Send Order to Remote Printer", "Send Check", JOptionPane.WARNING_MESSAGE);
+	return "Cancel";
+}else{
+	return null;
+}

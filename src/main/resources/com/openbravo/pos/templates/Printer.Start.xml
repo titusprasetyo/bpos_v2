@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+bPOS Retail Solution
+ -->
+
+<output>
+<!-- DISPLAY ANIMATION OPTIONS -->
+             <display animation="flyer">
+<!--            <display animation="scroll"> -->
+<!--            <display animation="blink"> -->
+<!--            <display animation="curtain"> -->
+<!--            <display animation="none"> -->
+        <line>
+            <text>uniCenta oPOS</text>
+        </line>
+        <line>
+            <text>Point Of Sale</text>
+        </line>
+    </display>
+</output>

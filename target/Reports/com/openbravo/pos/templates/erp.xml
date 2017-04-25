@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>BPOS ERP Websevice configuration</comment>
+    <entry key="url">
+		http://berp.co.id:7878/ADInterface/services/
+    </entry>
+    <entry key="id">11</entry>
+    <entry key="org">11</entry>
+    <entry key="pos">0</entry>
+    <entry key="user">GardenAdmin</entry>
+    <entry key="password">GardenAdmin</entry>
+    <entry key="warehouse">103</entry>
+    <entry key="role">103</entry>
+    <entry key="lang">192</entry>
+    <entry key="stage">0</entry>
+    <entry key="tax">106</entry>
+    <entry key="pricelist">104</entry>
+    <entry key="orderDocType">135</entry>
+</properties>
