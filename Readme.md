@@ -1,1 +1,1 @@
-"#BPOS Retail Solution" 
+"#BPOS" 
