@@ -63,6 +63,11 @@ public class ExternalSalesHelper {
     private String m_iERPPricelist;
     private String m_iERPUrl;
     private String m_iERPOrdDoc;
+    private String m_iERPDefaultCust;
+    
+    public String getDefaultCustomer(){
+    	return this.m_iERPDefaultCust;
+    }
     
     /** Creates a new instance of WebServiceHelper */
     public ExternalSalesHelper(DataLogicSystem dlsystem) throws BasicException, ServiceException, MalformedURLException {
@@ -108,7 +113,7 @@ public class ExternalSalesHelper {
                 m_iERPPricelist = prop.getProperty("pricelist");
                 m_iERPUrl = url;
                 m_iERPOrdDoc = prop.getProperty("orderDocType");
-                
+                m_iERPDefaultCust = prop.getProperty("defaultCust");
             }
         }
     }

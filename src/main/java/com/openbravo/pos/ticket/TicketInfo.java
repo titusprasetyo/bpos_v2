@@ -154,8 +154,8 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         m_dDate = dr.getTimestamp(4);
         m_sActiveCash = dr.getString(5);
         try {
-            //byte[] img = dr.getBytes(6);
-        	byte[] img = dr.getString(6).getBytes();
+            byte[] img = dr.getBytes(12);
+        	//byte[] img = dr.getString(12).getBytes();
             if (img != null) {
                 attributes.loadFromXML(new ByteArrayInputStream(img));
             }

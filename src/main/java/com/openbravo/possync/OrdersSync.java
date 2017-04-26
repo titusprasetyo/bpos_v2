@@ -111,7 +111,7 @@ public class OrdersSync implements ProcessAction {
             Calendar datenew = Calendar.getInstance();
             datenew.setTime(ticket.getDate());
             orderid.setDateNew(datenew);
-            orderid.setDocumentNo("BPOS"+Integer.toString(ticket.getTicketId()));
+            orderid.setDocumentNo("BPOS-"+ticket.getId().substring(0,7).toUpperCase()+"-"+ticket.getUser().getName().toUpperCase()+"-"+ Integer.toString(ticket.getTicketId()));
 
             orders[i].setOrderId(orderid);
             orders[i].setState(800175);
@@ -119,7 +119,10 @@ public class OrdersSync implements ProcessAction {
             // set the business partner
             BPartner bp;
             if (ticket.getCustomerId() == null) {
-                bp = null;
+                //bp = null;
+                bp = new BPartner();
+                bp.setId(externalsales.getDefaultCustomer());
+                bp.setName("Standard");
             } else {
                 bp = new BPartner();
                 bp.setId(ticket.getCustomer().getId());

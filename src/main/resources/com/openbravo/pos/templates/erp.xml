@@ -17,4 +17,5 @@
     <entry key="tax">106</entry>
     <entry key="pricelist">104</entry>
     <entry key="orderDocType">135</entry>
+    <entry key="defaultCust">112</entry>
 </properties>
