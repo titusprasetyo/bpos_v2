@@ -578,6 +578,9 @@ public class ExternalSalesSoapBindingStub extends org.apache.axis.client.Stub
 					"                  <adin:field column=\"AD_Client_ID\">"+
 					"                     <adin:val>"+clientID+"</adin:val>"+
 					"                  </adin:field>"+
+					"                  <adin:field column=\"AD_Org_ID\">"+
+					"                  	<adin:val>"+organizationId+"</adin:val>"+
+					"                  </adin:field>  "+
 					"                  <adin:field column=\"C_Tax_ID\">"+
                     " 				   	<adin:val>"+taxs+"</adin:val>"+
                     "				   </adin:field>"+
