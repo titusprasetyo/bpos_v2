@@ -11,6 +11,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -618,7 +621,7 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
 		} catch (org.apache.axis.AxisFault axisFaultException) {
 			throw axisFaultException;
 		}*/
-		Customer[] ret = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring);
+		Customer[] ret = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring, "1", "1000");
 		return ret;
 	}
 
@@ -627,13 +630,14 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
 			java.lang.String username,
 			java.lang.String password, java.lang.String lang,
 			java.lang.String wh, java.lang.String stage,
-			java.lang.String role, java.lang.String urlstring) {
+			java.lang.String role, java.lang.String urlstring, java.lang.String startRow, java.lang.String endRow) {
 		Customer[] customers = null;
 		Location[] locations = new Location[1];
 		Contact[] contacts = new Contact[1];
 		Customer customer = null;
 		Contact contact = null;
 		Location location = null;
+		int arrSize = 0;
         try {
 
             String soapXml = 
@@ -647,7 +651,7 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
 					"               <adin:TableName>C_BPARTNER_WS_VT</adin:TableName>"+
 					"               <adin:RecordID>0</adin:RecordID>"+
 					"               <adin:Action>Read</adin:Action>"+
-					"               <adin:filter>AD_Client_ID</adin:filter>"+
+					"               <adin:Filter>C_BPARTNER_WS_VT_ID BETWEEN #start AND #end</adin:Filter>"+
 					"               <!--Optional:-->"+
 					"               <adin:DataRow>"+
 					"                  <!--Zero or more repetitions:-->"+
@@ -670,7 +674,8 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
 					"      </adin:queryData>"+
 					"   </soapenv:Body>"+
 					"</soapenv:Envelope>";
-
+            
+            soapXml = soapXml.replace("#start", startRow).replace("#end", endRow);
             java.net.URL url = new java.net.URL(urlstring+"ModelADService");
             URLConnection conn = url.openConnection();
             //((HttpsURLConnection) conn).setSSLSocketFactory(sslSocketFactory);
@@ -706,7 +711,7 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
             NodeList nodes = doc.getElementsByTagName("DataRow");
             NodeList count = doc.getElementsByTagName("WindowTabData");
             Element elementCount = (Element) count.item(0);
-            int arrSize = Integer.parseInt(elementCount.getAttributeNode("TotalRows").getNodeValue());
+            arrSize = Integer.parseInt(elementCount.getAttributeNode("TotalRows").getNodeValue());
             customers = new Customer[arrSize];
             
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -807,6 +812,14 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        /*
+        if (arrSize != 0){
+        	Customer[] toBeMerged = getCustomersWs(clientID, organizationId, username, password, lang, wh, stage, role, urlstring, String.valueOf(Integer.parseInt(endRow)+1), String.valueOf(Integer.parseInt(endRow)+1000));
+        	List list = new ArrayList(Arrays.asList(customers));
+        	list.addAll(Arrays.asList(toBeMerged));
+        	customers = (Customer[]) list.toArray();
+        }
+        */
         return customers;
     }
 	

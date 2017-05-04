@@ -571,7 +571,7 @@ public class ExternalSalesSoapBindingStub extends org.apache.axis.client.Stub
 					"               <adin:TableName>M_Product_WS_VT</adin:TableName>"+
 					"               <adin:RecordID>0</adin:RecordID>"+
 					"               <adin:Action>Read</adin:Action>"+
-					"               <adin:filter>AD_Client_ID</adin:filter>"+
+					"               <!--<adin:Filter>AD_Client_ID</adin:Filter>-->"+
 					"               <!--Optional:-->"+
 					"               <adin:DataRow>"+
 					"                  <!--Zero or more repetitions:-->"+
