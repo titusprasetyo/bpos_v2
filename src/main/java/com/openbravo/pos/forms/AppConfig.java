@@ -133,6 +133,15 @@ public class AppConfig implements AppProperties {
         loadDefault();
         return configfile.delete();
     }
+    
+    /**
+    *
+    * @return Delete .properties filename
+    */
+   public boolean delete(String lic) {
+       loadDefault(lic);
+       return configfile.delete();
+   }
 
     /**
      * Get instance settings
@@ -150,6 +159,26 @@ public class AppConfig implements AppProperties {
             }
         } catch (IOException e){
             loadDefault();
+        }
+    
+    }
+    
+    /**
+     * Get instance settings
+     * @Read .properties resource files
+     */
+    public void load(String lic) {
+
+        loadDefault(lic);
+
+        try {
+            InputStream in = new FileInputStream(configfile);
+            if (in != null) {
+                m_propsconfig.load(in);
+                in.close();
+            }
+        } catch (IOException e){
+            loadDefault(lic);
         }
     
     }
@@ -277,6 +306,112 @@ public class AppConfig implements AppProperties {
         
         m_propsconfig.setProperty("format.currency", "#,##0");
         
+        //load resource
+        m_propsconfig.setProperty("resources.reload", "No");
+        
+
+    }
+    
+    /**
+     * Settings over-rides
+     * @throws IOException
+     */
+    
+    private void loadDefault(String licenceEnd) {
+        
+        m_propsconfig = new Properties();
+        
+        String dirname = System.getProperty("dirname.path");
+        dirname = dirname == null ? "./" : dirname;
+        
+        m_propsconfig.setProperty("db.driverlib", new File(new File(dirname), "lib/derby.jar").getAbsolutePath());
+        m_propsconfig.setProperty("db.driver", "org.apache.derby.jdbc.EmbeddedDriver");
+        m_propsconfig.setProperty("db.URL", "jdbc:derby:" + new File(new File(System.getProperty("user.home")), AppLocal.APP_ID + "db").getAbsolutePath() + ";create=true");
+        m_propsconfig.setProperty("db.user", "");
+        m_propsconfig.setProperty("db.password", "");
+
+//        m_propsconfig.setProperty("db.driverlib", new File(new File(dirname), "lib/hsqldb.jar").getAbsolutePath());
+//        m_propsconfig.setProperty("db.driver", "org.hsqldb.jdbcDriver");
+//        m_propsconfig.setProperty("db.URL", "jdbc:hsqldb:file:" + new File(new File(System.getProperty("user.home")), AppLocal.APP_ID + "-db").getAbsolutePath() + ";shutdown=true");
+//        m_propsconfig.setProperty("db.user", "SA");
+//        m_propsconfig.setProperty("db.password", "");
+        
+//        m_propsconfig.setProperty("db.driver", "com.mysql.jdbc.Driver");
+//        m_propsconfig.setProperty("db.URL", "jdbc:mysql://localhost:3306/database");
+//        m_propsconfig.setProperty("db.user", "user");         
+//        m_propsconfig.setProperty("db.password", "password");
+        
+//        m_propsconfig.setProperty("db.driver", "org.postgresql.Driver");
+//        m_propsconfig.setProperty("db.URL", "jdbc:postgresql://localhost:5432/database");
+//        m_propsconfig.setProperty("db.user", "user");         
+//        m_propsconfig.setProperty("db.password", "password");        
+
+
+ /**
+  * 
+  * Default component settings
+  */       
+        m_propsconfig.setProperty("machine.hostname", getLocalHostName());
+        
+        Locale l = Locale.getDefault();
+        m_propsconfig.setProperty("user.language", "in");
+        m_propsconfig.setProperty("user.country", "ID");
+        m_propsconfig.setProperty("user.variant", "");     
+        
+        //m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.metal.MetalLookAndFeel"));
+//        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.synth.SynthLookAndFeel"));
+        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin"));
+        
+        m_propsconfig.setProperty("machine.printer", "screen");
+        m_propsconfig.setProperty("machine.printer.2", "Not defined");
+        m_propsconfig.setProperty("machine.printer.3", "Not defined");
+        m_propsconfig.setProperty("machine.printer.4", "Not defined");
+        m_propsconfig.setProperty("machine.printer.5", "Not defined");
+        m_propsconfig.setProperty("machine.printer.6", "Not defined");
+                
+        m_propsconfig.setProperty("machine.display", "screen");
+        m_propsconfig.setProperty("machine.scale", "Not defined");
+        m_propsconfig.setProperty("machine.screenmode", "window"); // fullscreen / window
+        m_propsconfig.setProperty("machine.ticketsbag", "standard");
+        m_propsconfig.setProperty("machine.scanner", "Not defined");
+        
+        m_propsconfig.setProperty("payment.gateway", "external");
+        m_propsconfig.setProperty("payment.magcardreader", "Not defined");
+        m_propsconfig.setProperty("payment.testmode", "false");
+        m_propsconfig.setProperty("payment.commerceid", "");
+        m_propsconfig.setProperty("payment.commercepassword", "password");
+        
+        m_propsconfig.setProperty("machine.printername", "(Default)");
+
+        // Receipt printer paper set to 72mmx200mm
+
+// JG 7 May 14 Epson ESC/POS settings
+        m_propsconfig.setProperty("paper.receipt.x", "10");
+        m_propsconfig.setProperty("paper.receipt.y", "10");
+// JG 7 May 14 Star Micronics settings
+//        m_propsconfig.setProperty("paper.receipt.x", "10");
+//        m_propsconfig.setProperty("paper.receipt.y", "287");
+        m_propsconfig.setProperty("paper.receipt.width", "190");
+        m_propsconfig.setProperty("paper.receipt.height", "546");
+        m_propsconfig.setProperty("paper.receipt.mediasizename", "A4");
+
+        // Normal printer paper for A4
+        m_propsconfig.setProperty("paper.standard.x", "72");
+        m_propsconfig.setProperty("paper.standard.y", "72");
+        m_propsconfig.setProperty("paper.standard.width", "451");
+        m_propsconfig.setProperty("paper.standard.height", "698");
+        m_propsconfig.setProperty("paper.standard.mediasizename", "A4");
+
+        m_propsconfig.setProperty("machine.uniqueinstance", "false");
+        
+//JG July 2014 - Thank you Ron Isaacson On-screen receipt defauls to 42 columns
+        m_propsconfig.setProperty("screen.receipt.columns", "42");
+        
+        m_propsconfig.setProperty("format.currency", "#,##0");
+        
+        //load resource
+        m_propsconfig.setProperty("resources.reload", "No");
+        m_propsconfig.setProperty("bpos.end.subscription", licenceEnd);
 
     }
 }

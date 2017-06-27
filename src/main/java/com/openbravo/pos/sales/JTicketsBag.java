@@ -97,6 +97,9 @@ public abstract class JTicketsBag extends JPanel {
             case "standard":
                 // return new JTicketsBagMulti(oApp, user, panelticket);
                 return new JTicketsBagShared(app, panelticket);
+            case "proffesional":
+                // return new JTicketsBagMulti(oApp, user, panelticket);
+                return new JTicketsBagShared(app, panelticket);                
             case "restaurant":
                 return new JTicketsBagRestaurantMap(app, panelticket);
             default:

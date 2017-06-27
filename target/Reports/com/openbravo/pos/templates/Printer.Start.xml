@@ -5,16 +5,16 @@ bPOS Retail Solution
 
 <output>
 <!-- DISPLAY ANIMATION OPTIONS -->
-             <display animation="flyer">
-<!--            <display animation="scroll"> -->
+<!--              <display animation="flyer"> -->
+           <display animation="scroll">
 <!--            <display animation="blink"> -->
 <!--            <display animation="curtain"> -->
 <!--            <display animation="none"> -->
         <line>
-            <text>uniCenta oPOS</text>
+            <text>b-POS</text>
         </line>
         <line>
-            <text>Point Of Sale</text>
+            <text>Point Of Sale Solution</text>
         </line>
     </display>
 </output>

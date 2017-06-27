@@ -10,6 +10,7 @@ package com.openbravo.ws.customers;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -621,9 +622,47 @@ public class WebServiceSoapBindingStub extends org.apache.axis.client.Stub
 		} catch (org.apache.axis.AxisFault axisFaultException) {
 			throw axisFaultException;
 		}*/
-		Customer[] ret = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring, "1", "1000");
+		int startRow = 1;
+		int endRow = 1000;
+		
+		Customer[] ret = null;
+		Customer[] firstStep = null;
+		Customer[] secondStep = null;
+		firstStep  = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring, String.valueOf(startRow), String.valueOf(endRow));
+		
+		startRow = startRow+1000;
+		endRow = endRow+1000;
+		secondStep = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring, String.valueOf(startRow), String.valueOf(endRow));
+		
+		if (secondStep.length != 0) ret = joinArrayGeneric(firstStep, secondStep);
+		while (secondStep.length != 0){
+			startRow = startRow+1000;
+			endRow = endRow+1000;
+			secondStep = getCustomersWs(clientId, organizationId, username, password, lang, wh, stage, role, urlstring, String.valueOf(startRow), String.valueOf(endRow));
+			if (secondStep.length != 0) ret = joinArrayGeneric(firstStep, secondStep);
+			if (startRow > 10000) break;
+		}
+		if (secondStep.length != 0) ret = joinArrayGeneric(firstStep, secondStep);
 		return ret;
 	}
+	
+	private <T> T[] joinArrayGeneric(T[]... arrays) {
+        int length = 0;
+        for (T[] array : arrays) {
+            length += array.length;
+        }
+
+        //T[] result = new T[length];
+        final T[] result = (T[]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
+
+        int offset = 0;
+        for (T[] array : arrays) {
+            System.arraycopy(array, 0, result, offset, array.length);
+            offset += array.length;
+        }
+
+        return result;
+    }
 
 	com.openbravo.ws.customers.Customer[] getCustomersWs(
 			java.lang.String clientID, java.lang.String organizationId,

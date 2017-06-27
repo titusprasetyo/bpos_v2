@@ -3,7 +3,7 @@
 <properties>
     <comment>BPOS ERP Websevice configuration</comment>
     <entry key="url">
-		http://berp.co.id:7878/ADInterface/services/
+		http://berp.co.id:9808/ADInterface/services/
     </entry>
     <entry key="id">11</entry>
     <entry key="org">11</entry>
@@ -18,4 +18,5 @@
     <entry key="pricelist">104</entry>
     <entry key="orderDocType">135</entry>
     <entry key="defaultCust">112</entry>
+    <entry key="autosync">0</entry>
 </properties>

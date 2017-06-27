@@ -118,6 +118,8 @@ INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('61', 'script.posapps',
 INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('62', 'img.posapps', 1, $FILE{/com/openbravo/pos/templates/img.posapps.png});
 INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('63', 'erp.properties', 0, $FILE{/com/openbravo/pos/templates/erp.xml});
 
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('64', 'Printer.Ticket_A4', 0, $FILE{/com/openbravo/pos/templates/Printer.Ticket_A4.xml});
+
 CREATE TABLE TAXCUSTCATEGORIES (
     ID VARCHAR(256) NOT NULL,
     NAME VARCHAR(1024) NOT NULL,

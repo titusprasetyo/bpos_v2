@@ -19,6 +19,7 @@
 
 package com.openbravo.pos.forms;
 
+import com.busoftinc.pos.autosync.SyncProduct;
 import com.busoftinc.pos.util.LicenceWindow;
 import com.openbravo.basic.BasicException;
 import com.openbravo.beans.JFlowPanel;
@@ -35,6 +36,7 @@ import com.openbravo.pos.printer.TicketPrinterException;
 import com.openbravo.pos.scale.DeviceScale;
 import com.openbravo.pos.scanpal2.DeviceScanner;
 import com.openbravo.pos.scanpal2.DeviceScannerFactory;
+
 import java.awt.CardLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
@@ -50,8 +52,10 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
+
 import javax.swing.*;
 
 /**
@@ -104,7 +108,7 @@ public class JRootApp extends JPanel implements AppView {
 			"<br/><br/>\n" + 
 			"bPOS Retail Solution adalah perangkat lunak yang digunakan untuk membantu operasional pembukuan bagi pemilik bisnis dalam bidang retail (minimarket, restoran, toko kelontong dll).\n" + 
 			"Perangkat lunak ini dipersembahkan oleh Busoft Inc sebagai solusi dalam pengelolaan toko retail. bPOS dapat dioperasikan secara single user atau multiuser, baik secara offline maupun online.\n" + 
-			"Untuk informasi lebih lanjut dapat hubungi hotline kami: <b>Cell/WA 0811809808 Pin BBM BIP18215.</b><br/><u>Lisensi valid sampai dengan : <b>#licence#</b></u></center><html>";
+			"Untuk informasi lebih lanjut dapat hubungi hotline kami: <b>Cell/WA 0811809808 Pin BBM BIP18215.</b><br/><u>Lisensi akan berakhir dalam <b>#licence#</b> hari</u></center><html>";
 
 	static {
 		initOldClasses();
@@ -150,7 +154,16 @@ public class JRootApp extends JPanel implements AppView {
 	public boolean initApp(AppProperties props) {
 
 		m_props = props;
-		this.disclaimer_bpos = this.disclaimer_bpos.replace("#licence#", m_props.getProperty("bpos.end.subscription"));
+		String diffLic = "0";
+		try{
+			Date endSUb = new SimpleDateFormat("yyyyMMdd").parse(m_props.getProperty("bpos.end.subscription"));
+			Date todayDt = Calendar.getInstance().getTime();
+			diffLic = String.valueOf((endSUb.getTime()-todayDt.getTime())/(1000*60*60*24));
+		}catch(Exception e){
+			
+		}
+		this.disclaimer_bpos = this.disclaimer_bpos.replaceAll("#licence#", diffLic);
+		jLabel1.setText(this.disclaimer_bpos);
 		m_jPanelDown.setVisible(!(Boolean.valueOf(m_props.getProperty("till.hideinfo"))));
 
 		// support for different component orientation languages.
@@ -226,6 +239,29 @@ public class JRootApp extends JPanel implements AppView {
 					session.close();
 					return false;
 				}
+			}
+		}
+		//always reload Resource
+		if ("yes".equalsIgnoreCase(props.getProperty("resources.reload"))){
+			String sScript = m_dlSystem.getInitScript() + "-resources.sql";
+			try {
+				BatchSentence bsentence = new BatchSentenceResource(session, sScript);
+				bsentence.putParameter("APP_ID", Matcher.quoteReplacement(AppLocal.APP_ID));
+				bsentence.putParameter("APP_NAME", Matcher.quoteReplacement(AppLocal.APP_NAME));
+				bsentence.putParameter("APP_VERSION", Matcher.quoteReplacement(AppLocal.APP_VERSION));
+
+				java.util.List l = bsentence.list();
+				if (l.size() > 0) {
+					JMessageDialog.showMessage(this,
+							new MessageInf(MessageInf.SGN_WARNING,
+									AppLocal.getIntString("Database.ScriptWarning"),
+									l.toArray(new Throwable[l.size()])));
+				}
+			} catch (BasicException e) {
+				JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER,
+						AppLocal.getIntString("Database.ScriptError"), e));
+				session.close();
+				//return false;
 			}
 		}
 
@@ -310,14 +346,14 @@ public class JRootApp extends JPanel implements AppView {
 		String newText = m_props.getProperty("start.text");
 		if (newText != null) {
 			if (newText.equals("")) {
-				jLabel1.setText(disclaimer_bpos);
+				jLabel1.setText(this.disclaimer_bpos);
 			} else {
 				try {
 					String newTextCode = new Scanner(new File(newText), "UTF-8").useDelimiter("\\A").next();
 					jLabel1.setText(newTextCode);
 				} catch (Exception e) {
 				}
-				jLabel1.setText(disclaimer_bpos);
+				jLabel1.setText(this.disclaimer_bpos);
 				jLabel1.setAlignmentX(0.5F);
 				jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 				jLabel1.setMaximumSize(new java.awt.Dimension(800, 1024));
@@ -327,6 +363,10 @@ public class JRootApp extends JPanel implements AppView {
 
 		showLogin();
 
+		//scheduler for autosync to ERP
+		Thread t = new Thread(new SyncProduct(this));
+		t.start();
+		
 		return true;
 	}
 
@@ -840,7 +880,7 @@ public class JRootApp extends JPanel implements AppView {
 		jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 		jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/unicenta.png"))); // NOI18N
-		jLabel1.setText(disclaimer_bpos);
+		jLabel1.setText(this.disclaimer_bpos);
 		jLabel1.setAlignmentX(0.5F);
 		jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 		jLabel1.setMaximumSize(new java.awt.Dimension(800, 1024));

@@ -64,9 +64,14 @@ public class ExternalSalesHelper {
     private String m_iERPUrl;
     private String m_iERPOrdDoc;
     private String m_iERPDefaultCust;
+    private String m_iERPAutoSync;
     
     public String getDefaultCustomer(){
     	return this.m_iERPDefaultCust;
+    }
+    
+    public String getAutoSync(){
+    	return this.m_iERPAutoSync;
     }
     
     /** Creates a new instance of WebServiceHelper */
@@ -114,6 +119,7 @@ public class ExternalSalesHelper {
                 m_iERPUrl = url;
                 m_iERPOrdDoc = prop.getProperty("orderDocType");
                 m_iERPDefaultCust = prop.getProperty("defaultCust");
+                m_iERPAutoSync = prop.getProperty("autosync");
             }
         }
     }

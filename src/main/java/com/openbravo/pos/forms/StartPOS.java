@@ -19,10 +19,12 @@
 
 package com.openbravo.pos.forms;
 
+import com.busoftinc.pos.autosync.SyncProduct;
 import com.busoftinc.pos.util.LicenceHelper;
 import com.busoftinc.pos.util.LicenceWindow;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.instance.InstanceQuery;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Locale;
@@ -33,8 +35,10 @@ import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
+
 import com.openbravo.pos.ticket.TicketInfo;
 
 // JG 16 May 2013 deprecated for pushingpixels
@@ -76,6 +80,7 @@ public class StartPOS {
 	 * @param args
 	 */
 	public static void main(final String args[]) {
+
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -164,7 +169,7 @@ public class StartPOS {
 						System.exit(0);
 					}
 				}
-				
+				//config.load(lic.getSubValidTo());
 				/*
 				if (!lic.isLegal()) {
 					LicenceWindow l = new LicenceWindow(lic.isEndSubscription());

@@ -1386,11 +1386,15 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                             }
 
                             executeEvent(ticket, ticketext, "ticket.close", new ScriptArg("print", paymentdialog.isPrintSelected()));
+                            String xmlPrintText = "Printer.Ticket";
+                            if ("proffesional".equals(m_App.getProperties().getProperty("machine.ticketsbag"))){
+                            	xmlPrintText = "Printer.Ticket_A4";
+                            }
 
                             // Print receipt. 
 // John L July 2014 previous || warranty print reinstated
                             printTicket(paymentdialog.isPrintSelected() || warrantyPrint
-                                    ? "Printer.Ticket"
+                                    ? xmlPrintText/*"Printer.Ticket"*/
 //                                    ? ticketPrintType
                                     : "Printer.Ticket2", ticket, ticketext);  
                             

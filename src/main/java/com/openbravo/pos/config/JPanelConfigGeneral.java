@@ -56,6 +56,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jtxtMachineHostname.getDocument().addDocumentListener(dirty);
         jcboLAF.addActionListener(dirty);
         jcboMachineScreenmode.addActionListener(dirty);
+        jcboReloadResources.addActionListener(dirty);
         jcboTicketsBag.addActionListener(dirty);
         jchkHideInfo.addActionListener(dirty);  
         jtxtStartupText.getDocument().addDocumentListener(dirty);
@@ -87,10 +88,14 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
 
         jcboMachineScreenmode.addItem("window");
         jcboMachineScreenmode.addItem("fullscreen");
+        
+        jcboReloadResources.addItem("No");
+        jcboReloadResources.addItem("Yes");
 
         jcboTicketsBag.addItem("simple");
         jcboTicketsBag.addItem("standard");
         jcboTicketsBag.addItem("restaurant");
+        jcboTicketsBag.addItem("proffesional");
     }
 
     /**
@@ -132,6 +137,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         // jcboLAF.setSelectedItem(new LookAndFeelInfo());
 
         jcboMachineScreenmode.setSelectedItem(config.getProperty("machine.screenmode"));
+        jcboReloadResources.setSelectedItem(config.getProperty("resources.reload"));
         jcboTicketsBag.setSelectedItem(config.getProperty("machine.ticketsbag"));
         jchkHideInfo.setSelected(Boolean.valueOf(config.getProperty("till.hideinfo")).booleanValue());        
         jtxtStartupLogo.setText(config.getProperty("start.logo"));
@@ -155,6 +161,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
                 : laf.getClassName());
 
         config.setProperty("machine.screenmode", comboValue(jcboMachineScreenmode.getSelectedItem()));
+        config.setProperty("resources.reload", comboValue(jcboReloadResources.getSelectedItem()));
         config.setProperty("machine.ticketsbag", comboValue(jcboTicketsBag.getSelectedItem()));
         config.setProperty("till.hideinfo", Boolean.toString(jchkHideInfo.isSelected()));         
         config.setProperty("start.logo", jtxtStartupLogo.getText());
@@ -231,10 +238,12 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel3_i = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtxtMachineHostname = new javax.swing.JTextField();
         jcboLAF = new javax.swing.JComboBox();
         jcboMachineScreenmode = new javax.swing.JComboBox();
+        jcboReloadResources = new javax.swing.JComboBox();
         jcboTicketsBag = new javax.swing.JComboBox();
         jchkHideInfo = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
@@ -262,6 +271,10 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("Label.MachineScreen")); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 30));
+        
+        jLabel3_i.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3_i.setText("Reload Resc"); // NOI18N
+        jLabel3_i.setPreferredSize(new java.awt.Dimension(100, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("Label.Ticketsbag")); // NOI18N
@@ -284,6 +297,10 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jcboMachineScreenmode.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcboMachineScreenmode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jcboMachineScreenmode.setPreferredSize(new java.awt.Dimension(200, 30));
+        
+        jcboReloadResources.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jcboReloadResources.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jcboReloadResources.setPreferredSize(new java.awt.Dimension(200, 30));
 
         jcboTicketsBag.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcboTicketsBag.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -390,6 +407,10 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcboMachineScreenmode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel3_i, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcboReloadResources, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtxtMachineHostname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -418,6 +439,10 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcboMachineScreenmode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3_i, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcboReloadResources, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)                
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcboTicketsBag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -477,6 +502,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel3_i;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
@@ -484,6 +510,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
     private javax.swing.JButton jbtnLogoText;
     private javax.swing.JComboBox jcboLAF;
     private javax.swing.JComboBox jcboMachineScreenmode;
+    private javax.swing.JComboBox jcboReloadResources;
     private javax.swing.JComboBox jcboTicketsBag;
     private javax.swing.JCheckBox jchkHideInfo;
     private javax.swing.JTextField jtxtMachineHostname;
