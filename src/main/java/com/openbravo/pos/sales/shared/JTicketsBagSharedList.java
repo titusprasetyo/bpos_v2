@@ -75,6 +75,7 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
             mydialog = new JTicketsBagSharedList((Frame) window, true);
         } else {
             mydialog = new JTicketsBagSharedList((Dialog) window, true);
+            //mydialog = new JTicketsBagSharedList((Frame) window, true);
         } 
         
         mydialog.initComponents();

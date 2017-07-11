@@ -24,7 +24,9 @@ import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.sales.restaurant.JTicketsBagRestaurantMap;
 import com.openbravo.pos.sales.shared.JTicketsBagShared;
 import com.openbravo.pos.sales.simple.JTicketsBagSimple;
+
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**

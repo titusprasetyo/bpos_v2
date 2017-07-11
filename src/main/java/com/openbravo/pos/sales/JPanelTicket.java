@@ -21,6 +21,7 @@ package com.openbravo.pos.sales;
 
 import bsh.EvalError;
 import bsh.Interpreter;
+
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.gui.ListKeyed;
@@ -35,8 +36,11 @@ import com.openbravo.pos.panels.JProductFinder;
 import com.openbravo.pos.payment.JPaymentSelect;
 import com.openbravo.pos.payment.JPaymentSelectReceipt;
 import com.openbravo.pos.payment.JPaymentSelectRefund;
+import com.openbravo.pos.printer.DeviceDisplay;
+import com.openbravo.pos.printer.DeviceDisplayNull;
 import com.openbravo.pos.printer.TicketParser;
 import com.openbravo.pos.printer.TicketPrinterException;
+import com.openbravo.pos.printer.screen.DeviceDisplayLayaways;
 import com.openbravo.pos.sales.restaurant.RestaurantDBUtils;
 import com.openbravo.pos.scale.ScaleException;
 import com.openbravo.pos.scripting.ScriptEngine;
@@ -50,6 +54,7 @@ import com.openbravo.pos.util.AltEncrypter;
 import com.openbravo.pos.util.InactivityListener;
 import com.openbravo.pos.util.JRPrinterAWT300;
 import com.openbravo.pos.util.ReportUtils;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -62,12 +67,14 @@ import java.io.ObjectInputStream;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.print.PrintService;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -184,6 +191,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     private Boolean warrantyPrint=false;
 //   private String loyaltyCardNumber=null;
     
+    private DeviceDisplay layaways;
     
     /** Creates new form JTicketView */
     public JPanelTicket() {
@@ -201,7 +209,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
        
         m_App = app;
         restDB = new  RestaurantDBUtils(m_App);
-       
+        
+        //layaways = new DeviceDisplayLayaways(m_App);
+        //DeviceDisplayLayaways.getDeviceDisplayLayaways(m_App);
+     
         dlSystem = (DataLogicSystem) m_App.getBean("com.openbravo.pos.forms.DataLogicSystem");
         dlSales = (DataLogicSales) m_App.getBean("com.openbravo.pos.forms.DataLogicSales");
         dlCustomers = (DataLogicCustomers) m_App.getBean("com.openbravo.pos.customers.DataLogicCustomers");

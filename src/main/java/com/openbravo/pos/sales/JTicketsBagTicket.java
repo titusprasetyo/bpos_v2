@@ -223,16 +223,18 @@ public class JTicketsBagTicket extends JTicketsBag {
             } else {
                 m_ticket = ticket;
                 m_ticketCopy = null; // se asigna al pulsar el boton de editar o devolver
-                
+                /*
                 try {
                     taxeslogic.calculateTaxes(m_ticket);
                     TicketTaxInfo[] taxlist = m_ticket.getTaxLines();
                   //  taxcollection = new ListKeyed<TaxInfo>(taxlist);
                 } catch (TaxesException ex) {}
+                */
                 printTicket();
             }
             
         } catch (BasicException e) {
+        	e.printStackTrace();
             MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotloadticket"), e);
             msg.show(this);
         }

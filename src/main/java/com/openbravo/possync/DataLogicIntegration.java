@@ -244,7 +244,7 @@ public class DataLogicIntegration extends BeanFactoryDataSingle {
                 
                 // Try to update
                 if (new PreparedSentence(s, 
-                            "UPDATE PRODUCTS SET REFERENCE = ?, CODE = ?, NAME = ?, PRICEBUY = ?, PRICESELL = ?, CATEGORY = ?, TAXCAT = ?, IMAGE = ? WHERE ID = ?", 
+                            "UPDATE PRODUCTS SET REFERENCE = ?, CODE = ?, NAME = ?, PRICEBUY = ?, PRICESELL = ?, CATEGORY = ?, TAXCAT = ?, IMAGE = ? , DISPLAY= '<html><b>'||?||'</b></html>' WHERE ID = ?", 
                             SerializerWriteParams.INSTANCE
                             ).exec(new DataParams() { public void writeValues() throws BasicException {
                                 setString(1, prod.getReference());
@@ -259,12 +259,13 @@ public class DataLogicIntegration extends BeanFactoryDataSingle {
                                 setBytes(8, ImageUtils.writeImage(prod.getImage()));
                                 // setDouble(x, 0.0);
                                 // setDouble(x, 0.0);
-                                setString(9, prod.getID());  
+                                setString(9, prod.getName());
+                                setString(10, prod.getID());  
                             }}) == 0) {
                             
                     // If not updated, try to insert
                     new PreparedSentence(s, 
-                            "INSERT INTO PRODUCTS (ID, REFERENCE, CODE, NAME, ISCOM, ISSCALE, PRICEBUY, PRICESELL, CATEGORY, TAXCAT, IMAGE, STOCKCOST, STOCKVOLUME) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            "INSERT INTO PRODUCTS (ID, REFERENCE, CODE, NAME, ISCOM, ISSCALE, PRICEBUY, PRICESELL, CATEGORY, TAXCAT, IMAGE, STOCKCOST, STOCKVOLUME, DISPLAY) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '<html><b>'||?||'</b></html>')",
                             SerializerWriteParams.INSTANCE
                             ).exec(new DataParams() { public void writeValues() throws BasicException {
                                 setString(1, prod.getID());
@@ -279,7 +280,8 @@ public class DataLogicIntegration extends BeanFactoryDataSingle {
                                 setString(10, prod.getTaxCategoryID());
                                 setBytes(11, ImageUtils.writeImage(prod.getImage()));
                                 setDouble(12, 0.0);
-                                setDouble(13, 0.0);                               
+                                setDouble(13, 0.0);    
+                                setString(14, prod.getName());
                             }});
                 }
                         

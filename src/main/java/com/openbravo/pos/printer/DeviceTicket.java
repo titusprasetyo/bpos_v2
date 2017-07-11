@@ -24,10 +24,12 @@ import com.openbravo.pos.printer.javapos.DeviceDisplayJavaPOS;
 import com.openbravo.pos.printer.javapos.DeviceFiscalPrinterJavaPOS;
 import com.openbravo.pos.printer.javapos.DevicePrinterJavaPOS;
 import com.openbravo.pos.printer.printer.DevicePrinterPrinter;
+import com.openbravo.pos.printer.screen.DeviceDisplayLayaways;
 import com.openbravo.pos.printer.screen.DeviceDisplayPanel;
 import com.openbravo.pos.printer.screen.DeviceDisplayWindow;
 import com.openbravo.pos.printer.screen.DevicePrinterPanel;
 import com.openbravo.pos.util.StringParser;
+
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +51,8 @@ public class DeviceTicket {
     private DevicePrinter m_nullprinter;
     private Map<String, DevicePrinter> m_deviceprinters;
     private List<DevicePrinter> m_deviceprinterslist;
+    
+    //private DeviceDisplay layaways;
 
 /** 
  * 
@@ -61,6 +65,8 @@ public class DeviceTicket {
         m_deviceFiscal = new DeviceFiscalPrinterNull();
 
         m_devicedisplay = new DeviceDisplayNull();
+        
+        //layaways = new DeviceDisplayNull();
 
         m_nullprinter = new DevicePrinterNull();
         m_deviceprinters = new HashMap<>();
@@ -78,6 +84,8 @@ public class DeviceTicket {
      * @param props
      */
     public DeviceTicket(Component parent, AppProperties props) {
+    	
+    	//layaways = new DeviceDisplayLayaways();
 
         PrinterWritterPool pws = new PrinterWritterPool();
 
