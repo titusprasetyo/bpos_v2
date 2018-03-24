@@ -161,8 +161,8 @@ public final class TicketInfo implements SerializableRead, Externalizable {
             }
         } catch (IOException e) {
         }
-        m_User = new UserInfo(dr.getString(6), dr.getString(7));
-        m_Customer = new CustomerInfoExt(dr.getString(8));
+        m_User = new UserInfo(dr.getString(7), dr.getString(8));
+        m_Customer = new CustomerInfoExt(dr.getString(9));
         m_aLines = new ArrayList<>(); // JG June 2102 diamond inference
 
         payments = new ArrayList<>(); // JG June 2102 diamond inference

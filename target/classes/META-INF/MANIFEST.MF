@@ -1,6 +1,5 @@
 Manifest-Version: 1.0
 Built-By: tituspra
-Build-Jdk: 1.8.0_131
 Class-Path: lib/spring-2.5.jar lib/spring-core-2.0.6.jar lib/jcommon-1
  .0.17.jar lib/jfreechart-1.0.14.jar lib/core-3.1.1.jar lib/commons-be
  anutils-1.8.3.jar lib/commons-digester-2.1.jar lib/itext-2.1.7.jar li
@@ -44,6 +43,7 @@ Class-Path: lib/spring-2.5.jar lib/spring-core-2.0.6.jar lib/jcommon-1
  e-queries-4.5.1.jar lib/lucene-sandbox-4.5.1.jar lib/jakarta-regexp-1
  .4.jar lib/olap4j-0.9.7.309-JS-3.jar lib/core-2.3.0.jar lib/ecj-4.4.2
  .jar lib/mail-1.4.3.jar lib/activation-1.0.2.jar
-Main-Class: com.openbravo.pos.forms.StartPOS
+Build-Jdk: 1.8.0_151
 Created-By: Maven Integration for Eclipse
+Main-Class: com.openbravo.pos.forms.StartPOS
 

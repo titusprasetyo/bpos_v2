@@ -244,16 +244,16 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
         	cascade = false;
         }
         tax = new TaxInfo(
-                dr.getString(6), 
                 dr.getString(7), 
                 dr.getString(8), 
                 dr.getString(9), 
                 dr.getString(10), 
-                dr.getDouble(11), 
+                dr.getString(11), 
+                dr.getDouble(12), 
                 cascade,//dr.getBoolean(13), 
-                dr.getInt(2));
+                dr.getInt(14));
         attributes = new Properties();
-        /*
+        
         try {
             byte[] img = dr.getBytes(15);
             if (img != null) {
@@ -261,7 +261,7 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
             }
         } catch (IOException e) {
         }
-        */
+        
     }
 
     /**

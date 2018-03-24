@@ -176,7 +176,7 @@ public class ProductsSync implements ProcessAction {
                 return new MessageInf(MessageInf.SGN_SUCCESS, AppLocal.getIntString("message.syncproductsok"), AppLocal.getIntString("message.syncproductsinfo", products.length, customers.length));
             }
                 
-        } catch (ServiceException e) {            
+        } catch (ServiceException e) {
             throw new BasicException(AppLocal.getIntString("message.serviceexception"), e);
         } catch (RemoteException e){
             throw new BasicException(AppLocal.getIntString("message.remoteexception"), e);
